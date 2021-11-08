@@ -1,28 +1,17 @@
 package guru.springframework.msscbeerservice.web.mappers;
 
 import guru.springframework.msscbeerservice.domain.Beer;
-import guru.springframework.msscbeerservice.domain.Beer.BeerBuilder;
 import guru.springframework.msscbeerservice.web.model.BeerDto;
-import guru.springframework.msscbeerservice.web.model.BeerDto.BeerDtoBuilder;
-import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
 import javax.annotation.processing.Generated;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-11-07T15:42:57+0500",
+    date = "2021-11-08T22:19:00+0500",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 17 (Oracle Corporation)"
 )
 @Component
 public class BeerMapperImpl implements BeerMapper {
-
-    @Autowired
-    private DateMapper dateMapper;
-
-
-
-
 
     @Override
     public BeerDto beerToBeerDto(Beer beer) {
@@ -30,22 +19,9 @@ public class BeerMapperImpl implements BeerMapper {
             return null;
         }
 
-        BeerDtoBuilder beerDto = BeerDto.builder();
+        BeerDto beerDto = new BeerDto();
 
-        beerDto.id( beer.getId() );
-        if ( beer.getVersion() != null ) {
-            beerDto.version( beer.getVersion().intValue() );
-        }
-        beerDto.createdDate( dateMapper.asOffsetDateTime( beer.getCreatedDate() ) );
-        beerDto.lastModifiedDate( dateMapper.asOffsetDateTime( beer.getLastModifiedDate() ) );
-        beerDto.beerName( beer.getBeerName() );
-        if ( beer.getBeerStyle() != null ) {
-            beerDto.beerStyle( Enum.valueOf( BeerStyleEnum.class, beer.getBeerStyle() ) );
-        }
-        beerDto.upc( beer.getUpc() );
-        beerDto.price( beer.getPrice() );
-
-        return beerDto.build();
+        return beerDto;
     }
 
     @Override
@@ -54,21 +30,8 @@ public class BeerMapperImpl implements BeerMapper {
             return null;
         }
 
-        BeerBuilder beer = Beer.builder();
+        Beer beer = new Beer();
 
-        beer.id( dto.getId() );
-        if ( dto.getVersion() != null ) {
-            beer.version( dto.getVersion().longValue() );
-        }
-        beer.createdDate( dateMapper.asTimestamp( dto.getCreatedDate() ) );
-        beer.lastModifiedDate( dateMapper.asTimestamp( dto.getLastModifiedDate() ) );
-        beer.beerName( dto.getBeerName() );
-        if ( dto.getBeerStyle() != null ) {
-            beer.beerStyle( dto.getBeerStyle().name() );
-        }
-        beer.upc( dto.getUpc() );
-        beer.price( dto.getPrice() );
-
-        return beer.build();
+        return beer;
     }
 }
